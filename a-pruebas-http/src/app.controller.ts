@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, InternalServerErrorException, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, InternalServerErrorException, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('pepito') // segmento de la URL
@@ -9,20 +9,74 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-@HttpCode(200)
+
+  @HttpCode(200)
   @Post('esPar')
-  adiosMundo(): string{
+  adiosMundo(): string {
     const segundos = this.obtenerSegundos();
-    if (segundos % 2 === 0){
+    if (segundos % 2 === 0) {
       return 'Adios mundo!';
     }
     throw new InternalServerErrorException(
-      'es impar'
-      );
+      'es impar',
+    );
   }
-  private obtenerSegundos(): number{
+
+  private obtenerSegundos(): number {
     return new Date().getSeconds();
   }
+
+  // @ts-ignore
+  @Get('bienvenida')
+  public bienvenida(
+    @Query() parametrosDeConsulta: ObjetoBienvenida,
+    @Query(`nombre`) nombreUsuario: string,
+    @Query(`numero`) numeroUsuario: number,
+    @Query(`casado`) casadoUsuario: boolean,
+  ): string {
+    // tslint:disable-next-line:no-console
+    console.log(parametrosDeConsulta);
+    // tslint:disable-next-line:no-console
+    console.log(typeof numeroUsuario);
+    // templates strings  `mensaje ${variable}`
+    // return `mensaje ${parametrosDeConsulta}`
+  }
+
+  @Get('inscripcion-curso/:idCurso/:cedula')
+  public inscripcionCurso(
+    @Param() parametrosDeRuta: ObjetoIinscripcion,
+    @Param('idCurso') idCurso: string,
+    @Param('cedula') cedula: string,
+  ): string {
+    // tslint:disable-next-line:no-console
+    console.log(parametrosDeRuta);
+    return `te inscribiste al curso : ${idCurso}`;
+    // templates strings  `mensaje ${variable}`
+    // return `mensaje ${parametrosDeConsulta}`
+  }
+
+  @Post('almorzar')
+  @HttpCode(200)
+  public almorzar(
+    @Body() parametrosDeCuerpo,
+  ): string {
+    // tslint:disable-next-line:no-console
+    console.log(parametrosDeCuerpo);
+    return `te inscribiste al curso : ${parametrosDeCuerpo} `;
+
+  }
+
+}
+interface ObjetoBienvenida {
+    nombre?: string;
+    numero?: string;
+    casado?: string;
+  }
+
+interface ObjetoIinscripcion {
+  idCurso: string;
+  cedula: string;
+}
 
 /*
 // Typescript
@@ -150,4 +204,4 @@ interface Pokemon {
 
 */
 
-}
+

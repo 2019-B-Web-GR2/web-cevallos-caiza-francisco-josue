@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "nombre": "fran",
+    "nombre": false,
+    "hijos": null,
+    "mascota": {
+      "id": 1,
+      "nombre": "pulgas"
+    },
+    "apellido": "cevallos"
+  },
+  {
+    "id": 2,
+    "nombre": "fran",
+    "nombre": false,
+    "hijos": null,
+    "mascota": {
+      "id": 1,
+      "nombre": "pulgas"
+    },
+    "apellido": "cevallos"
+  }
+]
