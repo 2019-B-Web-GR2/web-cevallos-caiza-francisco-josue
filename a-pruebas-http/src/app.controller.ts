@@ -66,6 +66,14 @@ export class AppController {
 
   }
 
+  @Get('obtener-cabeceras')
+  obtenerCabeceras(
+    @Headers() cabeceras,
+  ) {
+    console.log(cabeceras)
+    return `las cabeceras son: ${cabeceras}`;
+  }
+
 }
 interface ObjetoBienvenida {
     nombre?: string;
