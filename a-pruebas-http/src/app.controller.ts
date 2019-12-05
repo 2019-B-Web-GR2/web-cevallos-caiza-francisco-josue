@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, InternalServerErrorException, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, InternalServerErrorException, Param, Post, Query, Headers } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('pepito') // segmento de la URL
