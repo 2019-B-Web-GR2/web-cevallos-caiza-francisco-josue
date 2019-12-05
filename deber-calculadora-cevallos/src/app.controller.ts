@@ -1,9 +1,10 @@
 import {Body, Controller, Delete, Get, HttpCode, Post, Put, Query, Headers} from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('calculadora')
 export class AppController {
   constructor(private readonly appService: AppService) {}
+  total = 100;
 
   @Get()
   getHello(): string {
@@ -19,18 +20,25 @@ export class AppController {
   ){
     console.log(cabeceras);
     const resultado: number=parseInt(num1)+parseInt(num2);
-    return `Resultado de SUMA =   ${resultado}`;
+    const operacion: number= this.total-resultado
+    this.total=operacion
+    return `Resultado de SUMA =   ${resultado} .... Queda ${this.contador(this.total)}`;
   }
 
-  @Post('resta')
-  @HttpCode(201)
+  @Get('resta')
+  @HttpCode(200)
   public restar(
-      @Body('num1') num1: string,
-      @Body('num2') num2:string
-  ):string{
+      @Headers() cabeceras:any,
+      @Headers('num1') num1:string,
+      @Headers('num2') num2:string,
+  ){
+    console.log(cabeceras);
     const resultado: number=parseInt(num1)-parseInt(num2);
-    return `Resultado de RESTA =   ${resultado}`;
+    const operacion: number= this.total-resultado
+    this.total=operacion
+    return `Resultado de Resta =   ${resultado} .... Queda ${this.contador(this.total)}`;
   }
+
 
   @Put('multiplicacion')
   @HttpCode(202)
@@ -40,7 +48,9 @@ export class AppController {
   ){
     console.log(`${num1} ${num2}`);
     const resultado: number=parseInt(num1)*parseInt(num2);
-    return `Resultado de MULTIPLICACION =   ${resultado}`;
+    const operacion: number= this.total-resultado
+    this.total=operacion
+    return `Resultado de MULTIPLICACION =   ${resultado} .... Queda ${this.contador(this.total)}`;
   }
 
   @Delete('division')
@@ -52,7 +62,16 @@ export class AppController {
   ){
     console.log(cabeceras);
     const resultado: number=parseInt(num1)/parseInt(num2);
-    return `Resultado de DIVISION =  ${resultado}`;
+    const operacion: number= this.total-resultado
+    this.total=operacion
+    return `Resultado de DIVISION =   ${resultado} .... Queda ${this.contador(this.total)}`;
+  }
+
+  public contador(operacion : number):number{
+    if (operacion<0){
+      this.total =100
+    }
+    return operacion
   }
 
 }
