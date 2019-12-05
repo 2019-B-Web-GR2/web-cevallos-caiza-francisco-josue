@@ -39,7 +39,7 @@ export class AppController {
     // tslint:disable-next-line:no-console
     console.log(typeof numeroUsuario);
     // templates strings  `mensaje ${variable}`
-    // return `mensaje ${parametrosDeConsulta}`
+     return `mensaje ${parametrosDeConsulta}`
   }
 
   @Get('inscripcion-curso/:idCurso/:cedula')
@@ -203,5 +203,4 @@ interface Pokemon {
 }
 
 */
-
 
